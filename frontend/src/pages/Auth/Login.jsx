@@ -1,15 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import "../styles/Login.css";
 import axios from "axios";
 
 const initialFormState = { email: "", password: "" };
 
-/**
- * 2. Added JWT helper function
- * A simple helper function to decode the JWT token
- * This doesn't validate the signature, just reads the data
- */
+
 function parseJwt(token) {
   try {
     return JSON.parse(atob(token.split('.')[1]));
@@ -24,12 +20,12 @@ export default function Login() {
   const roleFromURL = params.get("role"); // doctor / pharmacist / patient
 
   // Role is now set by URL, or defaults to "doctor"
-  const [role, setRole] = useState(roleFromURL || "doctor"); 
+  const [role, setRole] = useState(roleFromURL || "doctor");
   const [formData, setFormData] = useState(initialFormState);
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-
+  const navigate = useNavigate();
   // Reset form when role changes (e.g., if URL param changes)
   useEffect(() => {
     setRole(roleFromURL || "doctor");
@@ -57,7 +53,10 @@ export default function Login() {
       // Call the backend /auth/login route
       const response = await axios.post(
         "http://localhost:8000/auth/login",
-        formBody,
+        new URLSearchParams({
+          email:formData.email,
+          password: formData.password
+        }),
         {
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
@@ -74,10 +73,7 @@ export default function Login() {
       if (decodedToken && decodedToken.role === role) {
         // SUCCESS! Role matches.
         setMessage(`Login successful! Welcome, ${role}.`);
-        // In a real app, you would save the token:
-        // localStorage.setItem("accessToken", token);
-        // And redirect the user:
-        // window.location.href = `/${role}-dashboard`;
+        navigate("/")
       } else {
         // Role mismatch error
         throw new Error(`Login failed. This account is a ${decodedToken.role || 'unknown'}, not a ${role}.`);
