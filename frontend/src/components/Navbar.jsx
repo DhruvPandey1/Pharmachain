@@ -7,18 +7,29 @@ import loginImage from "../assets/login.png";
 import signupImage from "../assets/signup.png";
 import doctorLoginImg from "../assets/doctor-login.png";
 import pharmacistLoginImg from "../assets/pharmacist-login.png";
-import patientLoginImg from "../assets/patient-login.png"; // ✅ Add patient image
+import patientLoginImg from "../assets/patient-login.png";
 
 function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [modalStep, setModalStep] = useState("roles"); // roles | options
+  const [modalStep, setModalStep] = useState("roles");
   const [selectedRole, setSelectedRole] = useState(null);
+  const [isScrolled, setIsScrolled] = useState(false);
 
+  // Disable body scroll when modal/menu open
   useEffect(() => {
     document.body.style.overflow =
       isMobileMenuOpen || showModal ? "hidden" : "unset";
   }, [isMobileMenuOpen, showModal]);
+
+  // Detect scroll
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const closeAllMenus = () => {
     setIsMobileMenuOpen(false);
@@ -27,29 +38,16 @@ function Navbar() {
     setSelectedRole(null);
   };
 
-  // Role → text + icons
   const roleInfo = {
-    doctor: {
-      label: "Doctor",
-      icon: "👨‍⚕️",
-      img: doctorLoginImg,
-    },
-    pharmacist: {
-      label: "Pharmacist",
-      icon: "💊",
-      img: pharmacistLoginImg,
-    },
-    patient: {
-      label: "Patient",
-      icon: "🧑‍🦰",
-      img: patientLoginImg,
-    },
+    doctor: { label: "Doctor", icon: "👨‍⚕️", img: doctorLoginImg },
+    pharmacist: { label: "Pharmacist", icon: "💊", img: pharmacistLoginImg },
+    patient: { label: "Patient", icon: "🧑‍🦰", img: patientLoginImg },
   };
 
   return (
     <>
       {/* Navbar */}
-      <nav className="navbar">
+      <nav className={`navbar ${isScrolled ? "navbar-scrolled" : ""}`}>
         <div className="navbar-logo">
           <Link to="/">Pharma Project</Link>
         </div>
@@ -80,9 +78,9 @@ function Navbar() {
               strokeLinecap="round"
               strokeLinejoin="round"
             >
-              <line x1="3" y1="12" x2="21" y2="12"></line>
-              <line x1="3" y1="6" x2="21" y2="6"></line>
-              <line x1="3" y1="18" x2="21" y2="18"></line>
+              <line x1="3" y1="12" x2="21" y2="12" />
+              <line x1="3" y1="6" x2="21" y2="6" />
+              <line x1="3" y1="18" x2="21" y2="18" />
             </svg>
           </button>
         </div>
@@ -138,7 +136,9 @@ function Navbar() {
               )}
               {modalStep === "options" && selectedRole && (
                 <>
-                  <h2>{roleInfo[selectedRole].icon} {roleInfo[selectedRole].label}</h2>
+                  <h2>
+                    {roleInfo[selectedRole].icon} {roleInfo[selectedRole].label}
+                  </h2>
                   <p>Choose an option to continue</p>
                 </>
               )}
@@ -158,7 +158,9 @@ function Navbar() {
                   >
                     <img src={roleInfo[role].img} alt={`${role} option`} />
                     <div className="option-text">
-                      <h3>{roleInfo[role].icon} {roleInfo[role].label}</h3>
+                      <h3>
+                        {roleInfo[role].icon} {roleInfo[role].label}
+                      </h3>
                       <p>Continue as {roleInfo[role].label}</p>
                     </div>
                   </div>

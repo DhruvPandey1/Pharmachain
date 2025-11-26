@@ -1,0 +1,11 @@
+pandas 
+ydata-profiling 
+pyarrow 
+fastparquet 
+scikit-learn 
+matplotlib 
+seaborn
+numpy 
+xgboost 
+plotly
+tensorflow

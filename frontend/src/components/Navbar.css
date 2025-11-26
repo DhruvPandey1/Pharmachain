@@ -28,6 +28,7 @@ body {
   position: sticky;
   top: 0;
   z-index: 100;
+  margin: 5px;
 }
 .navbar-logo a {
   font-size: 22px;
@@ -273,4 +274,20 @@ hr { width: 100%; border: none; border-top: 1px solid var(--border-color); }
     min-width: 100%;
   }
 }
+
+/* === Scroll effect === */
+.navbar.navbar-scrolled {
+  margin: 12px;
+    top: 12px;
+    /* margin-top: 12px; */
+    background: transparent;
+    backdrop-filter: blur(12px);
+    box-shadow: rgba(34, 42, 53, 0.06) 0px 4px 10px, rgba(0, 0, 0, 0.05) 0px 2px 6px, rgba(34, 42, 53, 0.08) 0px 1px 3px, rgba(47, 48, 55, 0.05) 0px 0px 0px inset;
+    border-bottom: none;
+    border-radius:14px 14px 14px 14px;
+    padding: 12px 40px;
+    transition: all 0.1s ease;
+    border: 1px solid black;
+}
+
 

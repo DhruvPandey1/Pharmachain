@@ -11,6 +11,7 @@
   --success-color: #16a34a;
 }
 
+
 body {
   font-family: "Inter", sans-serif;
   margin: 0;
@@ -134,7 +135,7 @@ body {
   font-family: 'Inter', sans-serif;
   background-color: var(--light-gray-bg);
   transition: all 0.2s ease;
-  color: white;
+  color: var(--text-dark);
 }
 .form-textarea {
    resize: vertical;
