@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import "./Home.css"; // make sure Home.css is in the same folder
-
+import "./Home.css";
+import { driver } from "driver.js"; // make sure Home.css is in the same folder
+// import Joyride from "react-joyride";
 const images = [
   "https://imgs.search.brave.com/_bUIEbDUBcph44YIpRi56GrjLBTvvrX-8yVlas9E_8Q/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly90My5m/dGNkbi5uZXQvanBn/LzAwLzgxLzk5LzM0/LzM2MF9GXzgxOTkz/NDAyX3ZiWWFJN2c3/RFl3OVhBVUcxSlE3/UmtBcEdBc1ZTV0dF/LmpwZw",
   "https://imgs.search.brave.com/OmQL4M4BpourmuLCO8H9Z6gyB40TYETRkETSVOX_SvE/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvMTM4/OTExNjQ1OC9waG90/by9mYXJtYWNpYS1w/aGFybWFjeS5qcGc_/cz02MTJ4NjEyJnc9/MCZrPTIwJmM9QWxo/bm0xTmw3Xy1HN3FC/U1VtRVM4dk1vT1JN/Z0ItM2JDUFc0QkZ3/Y0lqQT0",
@@ -10,6 +11,12 @@ const images = [
 
 const Home = () => {
   const [currentImage, setCurrentImage] = useState(images[0]);
+    // const [runTutorial, setRunTutorial] = useState(false);
+
+  // Start tutorial every time user enters Home page
+  // useEffect(() => {
+  //   setRunTutorial(true);
+  // }, []);
 
   useEffect(() => {
     let imageIndex = 0;
@@ -21,9 +28,101 @@ const Home = () => {
     return () => clearInterval(interval);
   }, []);
 
+  // Image rotation
+  useEffect(() => {
+    let imageIndex = 0;
+    const interval = setInterval(() => {
+      imageIndex = (imageIndex + 1) % images.length;
+      setCurrentImage(images[imageIndex]);
+    }, 4000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+
+  
+
+  //  Joyride tutorial steps
+  // const steps = [
+  //   { target: ".welcome-card", content: "Welcome to the Pharma Project!" },
+  //   { target: ".about-section", content: "Learn what this platform does." },
+  //   { target: ".features-section", content: "These are the main features." },
+  //   { target: ".how-it-works-section", content: "See how the system works." },
+  //   { target: ".media-section", content: "Photos & videos explaining the process." },
+  // ];
+
+  //  -------------------------------
+  // 🚀 Driver.js Auto Tour Here
+  // -------------------------------
+  // useEffect(() => {
+  //   const driverObj = driver({
+  //     showProgress: true,
+  //     allowClose: true,
+  //     nextBtnText: "Next",
+  //     prevBtnText: "Back",
+  //     doneBtnText: "Finish",
+  //     steps: [
+  //       {
+  //         element: ".welcome-card",
+  //         popover: {
+  //           title: "Welcome 👋",
+  //           description: "This is the introduction to the Pharma Project platform.",
+  //           position: "bottom-center",
+  //         },
+  //       },
+  //       {
+  //         element: ".about-section",
+  //         popover: {
+  //           title: "About Section",
+  //           description: "Learn what our platform does and why it exists.",
+  //           position: "bottom-center",
+  //         },
+  //       },
+  //       {
+  //         element: ".features-section",
+  //         popover: {
+  //           title: "Features",
+  //           description: "Explore all core features of the system.",
+  //         },
+  //       },
+  //       {
+  //         element: ".how-it-works-section",
+  //         popover: {
+  //           title: "How It Works",
+  //           description: "Step-by-step overview of how the system functions.",
+  //         },
+  //       },
+  //       {
+  //         element: ".media-section",
+  //         popover: {
+  //           title: "Images & Videos",
+  //           description: "Visual explanation of healthcare workflow.",
+  //         },
+  //       },
+  //     ],
+  //   });
+
+  //   // Delay start to ensure DOM is ready
+  //   setTimeout(() => driverObj.drive(), 500);
+  // }, []);
+
+
   return (
     <div className="home-container">
       {/* Welcome */}
+      {/* Auto Tutorial */}
+      {/* <Joyride
+        steps={steps}
+        run={runTutorial}
+        continuous
+        showProgress
+        showSkipButton
+        scrollToFirstStep
+        disableScrolling={false}
+        styles={{
+          options: { primaryColor: "#28a745" },
+        }}
+      /> */}
       <div className="welcome-card section">
         <h1>
           Welcome to <span className="highlight">Pharma Project</span>

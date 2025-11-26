@@ -10,6 +10,8 @@
   
 }
 
+@import "driver.js/dist/driver.css";
+
 /* Dark mode */
 .theme-dark {
   --background-color: #111827;

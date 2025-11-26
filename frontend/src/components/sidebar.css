@@ -1,0 +1,37 @@
+.sidebar {
+  width: 240px;
+  background: #1e293b;
+  color: white;
+  padding: 25px;
+}
+
+.sidebar-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 25px;
+}
+
+.sidebar-menu {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar-menu li {
+  margin-bottom: 15px;
+}
+
+.sidebar-menu a {
+  text-decoration: none;
+  color: #cbd5e1;
+  font-size: 18px;
+  display: block;
+  padding: 10px;
+  border-radius: 8px;
+  transition: 0.2s;
+}
+
+.sidebar-menu a:hover,
+.active-link {
+  background: #334155;
+  color: #ffffff;
+}
