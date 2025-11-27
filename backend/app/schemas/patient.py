@@ -3,7 +3,7 @@ from datetime import date
 from .user import UserRead
 
 class PatientCreate(BaseModel):
-    role: str = "patient"
+    # role: str = "patient"
     fullName: str
     email: EmailStr
     password: str
